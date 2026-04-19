@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutri Cíclica | Nutrición online para adultos</title>
+  <meta name="description" content="Nutrición online cercana, clara y práctica para adultos y adultos mayores. Agenda tu orientación por WhatsApp." />
+  <style>
+    :root {
+      --primary: #6f42c1;
+      --primary-dark: #5a32a3;
+      --secondary: #8f63dd;
+      --bg: #f7f2ff;
+      --bg-soft: #fcf9ff;
+      --text: #2b1d3a;
+      --muted: #6f6480;
+      --white: #ffffff;
+      --border: #eadffd;
+      --success: #25d366;
+      --shadow: 0 12px 30px rgba(111, 66, 193, 0.14);
+      --radius: 20px;
+      --radius-sm: 12px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #fbf8ff 0%, #f4ecff 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(92%, var(--max));
+      margin: 0 auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(111, 66, 193, 0.08);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      background: rgba(111, 66, 193, 0.12);
+      color: var(--primary-dark);
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(251, 248, 255, 0.88);
+      border-bottom: 1px solid rgba(111, 66, 193, 0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: 0.2px;
+    }
+
+    .logo span {
+      color: var(--secondary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .hero {
+      padding: 70px 0 50px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4.2vw, 4.1rem);
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+
+    .hero p.lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .hero-point {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      font-size: 0.95rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f8f1ff 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(143, 99, 221, 0.12);
+    }
+
+    .hero-card::before {
+      width: 180px;
+      height: 180px;
+      right: -60px;
+      top: -40px;
+    }
+
+    .hero-card::after {
+      width: 120px;
+      height: 120px;
+      left: -30px;
+      bottom: -30px;
+    }
+
+    .mini-panel {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .mini-panel h3 {
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .mini-panel p,
+    .mini-panel li {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .mini-panel ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    section {
+      padding: 35px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .price {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+    }
+
+    .card ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .card li {
+      color: var(--text);
+      padding-left: 22px;
+      position: relative;
+      font-size: 0.97rem;
+    }
+
+    .card li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .highlight {
+      border: 2px solid var(--primary);
+      transform: scale(1.02);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .step {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .benefit {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .cta {
+      padding: 55px 0 70px;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #6f42c1 0%, #8f63dd 100%);
+      color: var(--white);
+      border-radius: 28px;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: center;
+      box-shadow: 0 20px 40px rgba(111, 66, 193, 0.25);
+    }
+
+    .cta-box p {
+      opacity: 0.95;
+      margin-top: 10px;
+    }
+
+    .cta-card {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      padding: 24px;
+    }
+
+    .cta-card a {
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    footer {
+      border-top: 1px solid rgba(111, 66, 193, 0.1);
+      padding: 24px 0 40px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: var(--success);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 1.6rem;
+      box-shadow: 0 12px 25px rgba(37, 211, 102, 0.35);
+      z-index: 50;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .cta-box,
+      .services,
+      .steps,
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-points {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .highlight {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 42px;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .container {
+        width: min(94%, var(--max));
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#inicio" class="logo">Nutri<span>Cíclica</span></a>
+      <nav class="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">Nutrición online clara, cercana y práctica</span>
+          <h1>Orientación nutricional pensada para adultos que quieren cuidarse sin complicarse.</h1>
+          <p class="lead">
+            Atención online con enfoque humano, explicaciones simples y acompañamiento real por WhatsApp.
+            Ideal para personas que buscan ordenar su alimentación, bajar de peso, comer mejor o recibir una guía clara.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://wa.me/56952141787?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20Nutri%20C%C3%ADclica" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
+            <a class="btn btn-outline" href="#servicios">Ver servicios</a>
+          </div>
+          <div class="hero-points">
+            <div class="hero-point"><strong>100% online</strong><br>Sin traslados ni esperas innecesarias.</div>
+            <div class="hero-point"><strong>Trato cercano</strong><br>Explicaciones sencillas y conversación directa.</div>
+            <div class="hero-point"><strong>Enfoque práctico</strong><br>Menos teoría, más acciones aplicables al día a día.</div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="mini-panel">
+            <h3>¿Qué puedes lograr?</h3>
+            <ul>
+              <li>Ordenar tus horarios y comidas</li>
+              <li>Aprender a comer mejor sin extremos</li>
+              <li>Recibir una guía visual y fácil de seguir</li>
+              <li>Resolver dudas de forma directa por WhatsApp</li>
+            </ul>
+          </div>
+          <div class="mini-panel">
+            <h3>Modalidad recomendada</h3>
+            <p>
+              Ideal para adultos de 50 a 70 años que valoran la atención personalizada, la claridad y la comodidad de resolver todo desde casa.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios">
+      <div class="container">
+        <div class="section-title">
+          <h2>Servicios principales</h2>
+          <p>Diseñados para un modelo simple, freelance y cercano, priorizando atención directa, material visual y seguimiento útil.</p>
+        </div>
+
+        <div class="services">
+          <article class="card">
+            <h3>Orientación Nutricional Inicial</h3>
+            <p>Una conversación online para conocer hábitos, objetivos y entregar una guía clara de partida.</p>
+            <div class="price">$29.990</div>
+            <ul>
+              <li>Videollamada o llamada de orientación</li>
+              <li>Revisión general de hábitos alimentarios</li>
+              <li>Recomendaciones prácticas personalizadas</li>
+              <li>Resumen simple enviado por WhatsApp o correo</li>
+            </ul>
+            <a class="btn btn-outline" href="https://wa.me/56952141787?text=Hola%2C%20quiero%20agendar%20la%20Orientaci%C3%B3n%20Nutricional%20Inicial" target="_blank" rel="noopener noreferrer">Consultar</a>
+          </article>
+
+          <article class="card highlight">
+            <h3>Plan Visual Personalizado</h3>
+            <p>Servicio más completo para quienes quieren una orientación concreta y fácil de aplicar.</p>
+            <div class="price">$44.990</div>
+            <ul>
+              <li>Evaluación inicial online</li>
+              <li>Plan de alimentación práctico y visual</li>
+              <li>Porciones, horarios y ejemplos de comidas</li>
+              <li>Entrega digital clara, amigable y ordenada</li>
+              <li>Resolución de dudas posteriores por WhatsApp</li>
+            </ul>
+            <a class="btn btn-primary" href="https://wa.me/56952141787?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20Plan%20Visual%20Personalizado" target="_blank" rel="noopener noreferrer">Quiero este servicio</a>
+          </article>
+
+          <article class="card">
+            <h3>Seguimiento Mensual</h3>
+            <p>Acompañamiento para ajustar, reforzar hábitos y mantener motivación sin volverlo pesado.</p>
+            <div class="price">$24.990</div>
+            <ul>
+              <li>1 control online al mes</li>
+              <li>Revisión de avances y dificultades</li>
+              <li>Ajustes simples al plan o recomendaciones</li>
+              <li>Contacto directo por WhatsApp en horario definido</li>
+            </ul>
+            <a class="btn btn-outline" href="https://wa.me/56952141787?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20Seguimiento%20Mensual" target="_blank" rel="noopener noreferrer">Consultar</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona">
+      <div class="container">
+        <div class="section-title">
+          <h2>Cómo funciona</h2>
+          <p>La idea es que sea fácil, rápido y sin fricción. Un proceso simple para captar y convertir desde una sola página.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Escribes por WhatsApp</h3>
+            <p>Se responde de forma directa, cercana y sin formularios largos.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Se agenda la atención</h3>
+            <p>Se coordina el horario que resulte más cómodo para la persona.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Se realiza la asesoría</h3>
+            <p>Con una conversación simple, enfocada en hábitos, objetivos y soluciones aplicables.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3>Se entrega la guía</h3>
+            <p>Material visual y recomendaciones claras para seguir avanzando.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-title">
+          <h2>Por qué este formato funciona</h2>
+          <p>Está pensado para personas que no quieren una experiencia fría ni excesivamente técnica.</p>
+        </div>
+
+        <div class="benefits">
+          <div class="benefit">
+            <h3>Más humano</h3>
+            <p>La comunicación por WhatsApp reduce barreras, genera confianza y hace que el primer contacto sea natural.</p>
+          </div>
+          <div class="benefit">
+            <h3>Más simple</h3>
+            <p>No depende de una plataforma compleja. La persona entiende rápido qué se ofrece y cómo contratar.</p>
+          </div>
+          <div class="benefit">
+            <h3>Más visual</h3>
+            <p>El enfoque puede complementarse con material gráfico, porcentajes corporales, hábitos y recomendaciones fáciles de interpretar.</p>
+          </div>
+          <div class="benefit">
+            <h3>Más liviano para operar</h3>
+            <p>Permite trabajar como freelancer, con menor carga administrativa y foco en atención directa.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contacto">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Da el primer paso con una orientación clara y cercana.</h2>
+            <p>Contacto directo por WhatsApp para resolver dudas, conocer valores y coordinar una primera atención online.</p>
+            <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 12px;">
+              <a class="btn btn-primary" style="background:#ffffff; color:#6f42c1;" href="https://wa.me/56952141787?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20de%20Nutri%20C%C3%ADclica" target="_blank" rel="noopener noreferrer">Contactar ahora</a>
+            </div>
+          </div>
+          <div class="cta-card">
+            <h3>Datos de contacto</h3>
+            <p style="margin-top: 12px;"><strong>WhatsApp:</strong><br><a href="https://wa.me/56952141787" target="_blank" rel="noopener noreferrer">+56 9 5214 1787</a></p>
+            <p style="margin-top: 14px;"><strong>Correo:</strong><br><a href="mailto:contacto@nutriciclica.cl">contacto@nutriciclica.cl</a></p>
+            <p class="note" style="color: rgba(255,255,255,0.85);">Dominio aún no activo. Puedes usar este correo como referencia o reemplazarlo temporalmente por Gmail mientras compras el dominio.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>NutriCíclica</strong> · Nutrición online con enfoque cercano y práctico.</p>
+      <p style="margin-top: 8px;">WhatsApp: +56 9 5214 1787 · Correo: contacto@nutriciclica.cl</p>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/56952141787?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Nutri%20C%C3%ADclica" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+    ✆
+  </a>
+</body>
+</html>
