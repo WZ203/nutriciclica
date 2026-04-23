@@ -117,13 +117,27 @@
     }
 
     .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       font-size: 1.35rem;
       font-weight: 800;
       color: var(--primary-dark);
       letter-spacing: 0.2px;
     }
 
-    .logo span {
+    .logo img {
+      height: 38px;
+      width: auto;
+      display: block;
+    }
+
+    .logo .logo-text {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .logo .logo-text span {
       color: var(--secondary);
     }
 
@@ -464,13 +478,20 @@
       .container {
         width: min(94%, var(--max));
       }
+
+      .logo img {
+        height: 34px;
+      }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container nav">
-      <a href="#inicio" class="logo">Nutri<span>Cíclica</span></a>
+      <a href="#inicio" class="logo">
+        <img src="logo.png" alt="Logo NutriCíclica">
+        <span class="logo-text">Nutri<span>Cíclica</span></span>
+      </a>
       <nav class="nav-links">
         <a href="#servicios">Servicios</a>
         <a href="#como-funciona">Cómo funciona</a>
